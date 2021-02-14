@@ -26,12 +26,18 @@ const showImages = (images) => {
   })
 
 }
+const error = document.getElementById("error");
 
 const getImages = (query) => {
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
-    .then(response => response.json())
-    .then(data => showImages(data.hits))
-    .catch(err => console.log(err))
+  if (search.value == '') {
+    alert("Sorry, search field can not be empty")
+  } else {
+    fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+      .then(response => response.json())
+      .then(data => showImages(data.hits))
+      .catch(err => console.log(err))
+      error.style.display = "none";
+  }
 }
 
 let slideIndex = 0;
@@ -54,18 +60,18 @@ const selectItem = (event, img) => {
 const selectedImagePreview = () => {
   const selectedImageContainer = document.getElementById("selected-image-preview");
   selectedImageContainer.innerHTML = ""
-  if(sliders.length < 1){
+  if (sliders.length < 1) {
     selectedImageContainer.style.display = "none"
   }
-  else{
+  else {
     selectedImageContainer.style.display = "flex"
     sliders.forEach((image) => {
-         const div = document.createElement("div");
-         div.className = "selected-image-box";
-         div.innerHTML = `
+      const div = document.createElement("div");
+      div.className = "selected-image-box";
+      div.innerHTML = `
     <img style="width:100%" src="${image}"/>
     `;
-         selectedImageContainer.appendChild(div);
+      selectedImageContainer.appendChild(div);
     });
   }
 }
@@ -84,7 +90,7 @@ const createSlider = () => {
 
   // check slide duration and take next
   if (duration < 1000) {
-    alert("Duration Must be Greater then or Equal 1s")
+    alert("Duration can not be negative value")
   } else {
     // create slider previous next area
     sliderContainer.innerHTML = '';
@@ -97,6 +103,7 @@ const createSlider = () => {
 
     sliderContainer.appendChild(prevNext)
     document.querySelector('.main').style.display = 'block';
+
     // hide image area
     imagesArea.style.display = 'none';
 
@@ -110,13 +117,14 @@ const createSlider = () => {
       alt="">`;
       sliderContainer.appendChild(item)
     })
+
     changeSlide(0)
     timer = setInterval(function () {
       slideIndex++;
       changeSlide(slideIndex);
     }, duration);
   }
-  
+
 }
 
 //create slider button
@@ -160,6 +168,7 @@ searchBtn.addEventListener('click', function () {
   sliders.length = 0;
 })
 
+//adding Enter button search work
 document.getElementById('search').addEventListener("keypress", function (event) {
   if (event.key == "Enter") {
     document.getElementById('search-btn').click();
