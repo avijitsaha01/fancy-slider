@@ -7,7 +7,6 @@ const sliderContainer = document.getElementById('sliders');
 // selected image 
 let sliders = [];
 
-
 // If this key doesn't work
 // Find the name in the url and go to their website
 // to create your own api key
@@ -87,7 +86,7 @@ const createSlider = () => {
   if (duration < 1000) {
     alert("Duration Must be Greater then or Equal 1s")
   } else {
-    // crate slider previous next area
+    // create slider previous next area
     sliderContainer.innerHTML = '';
     const prevNext = document.createElement('div');
     prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
@@ -104,7 +103,9 @@ const createSlider = () => {
     sliders.forEach(slide => {
       let item = document.createElement('div')
       item.className = "slider-item";
-      item.innerHTML = `<img class="w-100"
+      item.innerHTML = `
+      <h5 class="d-flex justify-content-center bg-warning text-white p-2">Total Image For Slide : ${sliders.length}</h5>
+      <img class="w-100"
       src="${slide}"
       alt="">`;
       sliderContainer.appendChild(item)
@@ -115,11 +116,14 @@ const createSlider = () => {
       changeSlide(slideIndex);
     }, duration);
   }
+  
 }
 
 //create slider button
 sliderBtn.addEventListener('click', function () {
-  createSlider()
+  createSlider();
+  const selectedImageContainer = document.getElementById("selected-image-preview");
+  selectedImageContainer.style.display = "none"
 })
 
 // change slider index 
