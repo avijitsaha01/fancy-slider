@@ -27,7 +27,7 @@
     <section class="images">
       <div class="justify-content-around align-items-center mt-3 gallery-header mb-2">
         <h3 class="head-title text-center">Select image for create slider</h3>
-        <div class="input-group col-md-3 mb-2 mb-md-0">
+        <div class="input-group col-md-3 mb-2 mb-md-0 align-items-center">
           <input class="form-control" id="duration" placeholder="slider change duration">
         </div>
         <button id="create-slider" class="btn btn-primary px-5">Create slider</button>
@@ -41,11 +41,16 @@
       <section class="mt-5" id="sliders">
 
       </section>
+      
       <div class="dots d-flex mt-2 w-100 justify-content-center align-items-center bg-light">
         <span class="dot" onclick="changeItem(-1)"></span>
         <span class="dot" onclick="changeItem(1)"></span>
       </div>
     </div>
+  </div>
+
+  <div id="selected-image-preview">
+
   </div>
   <!-- Optional JavaScript -->
   <script src="./app.js"></script>

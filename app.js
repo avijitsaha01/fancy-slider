@@ -22,7 +22,7 @@ const showImages = (images) => {
   images.forEach(image => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = `<img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+    div.innerHTML = `<img id="img-list" class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
 
@@ -43,10 +43,34 @@ const selectItem = (event, img) => {
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
+    selectedImagePreview();
   } else {
     sliders.splice(item, 1);
+    selectedImagePreview();
   }
 }
+
+
+// selected preview
+const selectedImagePreview = () => {
+  const selectedImageContainer = document.getElementById("selected-image-preview");
+  selectedImageContainer.innerHTML = ""
+  if(sliders.length < 1){
+    selectedImageContainer.style.display = "none"
+  }
+  else{
+    selectedImageContainer.style.display = "flex"
+    sliders.forEach((image) => {
+         const div = document.createElement("div");
+         div.className = "selected-image-box";
+         div.innerHTML = `
+    <img style="width:100%" src="${image}"/>
+    `;
+         selectedImageContainer.appendChild(div);
+    });
+  }
+}
+
 var timer
 
 const createSlider = () => {
@@ -74,7 +98,7 @@ const createSlider = () => {
 
     sliderContainer.appendChild(prevNext)
     document.querySelector('.main').style.display = 'block';
-    // hide image aria
+    // hide image area
     imagesArea.style.display = 'none';
 
     sliders.forEach(slide => {
@@ -137,4 +161,5 @@ document.getElementById('search').addEventListener("keypress", function (event) 
     document.getElementById('search-btn').click();
   }
 })
+
 
