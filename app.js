@@ -90,7 +90,7 @@ const createSlider = () => {
 
   // check slide duration and take next
   if (duration < 1000) {
-    alert("Duration can not be negative value")
+    alert("Duration can not be less then 1s")
   } else {
     // create slider previous next area
     sliderContainer.innerHTML = '';
